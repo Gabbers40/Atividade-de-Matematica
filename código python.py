@@ -6,8 +6,16 @@
 # --> deverá ser capaz de exportar o resultado.
 # --> IMPORTANTE: O PROGRAMA NÃO DEVE SÓ APRESENTAR O RESULTADO, MAS MOSTRAR O PASSO-A-PASSO DAS OPERAÇÕES.
 # Apresentação/entrega do código, demonstração do programa e resposta a pergunta que o professor irá fazer sobre o código.
+import time
+
 MENU = 0
 
+print("Bem-vindo ao programa de operações envolvendo matrizes")
+time.sleep(2) # Espera para o usuário ler
+
+print("\033[H\033[J", end="") # Apaga o texto do prompt
+
+quantMatriz = int(input("Quantas matrizes você quer gerar? ")) # Por enquanto só guarda quantas matrizes o usuário quer fazer, não foi usada ainda
 m = int(input("Coloque o número de linhas da sua matriz: "))
 n = int(input("Coloque o número de colunas da sua matriz: "))
 matriz = []
@@ -21,4 +29,7 @@ for i in range(m):
     matriz.append(linha)
 
 for linha in matriz:
-      print(linha)
+    print("Matriz gerada:")
+    print(linha)
+
+operMatriz = int(input("Qual operação você deseja fazer?\n"))
