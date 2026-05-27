@@ -8,8 +8,9 @@ O programa deverá ser capaz de:
 --> IMPORTANTE: O PROGRAMA NÃO DEVE SÓ APRESENTAR O RESULTADO, MAS MOSTRAR O PASSO-A-PASSO DAS OPERAÇÕES.
 Apresentação/entrega do código, demonstração do programa e resposta a pergunta que o professor irá fazer sobre o código.
 
-angelo - 
-kebab - 
-biel - 
-fernando - 
-aline - 
+
+kebab - função de matriz e criação de matriz
+biel - menu de matriz que não seja quadrada
+aline - soma/subtração, multiplicação e multiplicação por numero inteiro
+fernando - matriz transposta, inversa e determinante
+angelo - Resultado e passo a passo
