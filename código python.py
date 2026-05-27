@@ -24,7 +24,7 @@ print("Digite os números da sua matriz:")
 for i in range(m):
     linha = []
     for j in range(n):
-        valor = int(input(f"Digite o valor para a posição [{i}, {j}]: "))
+        valor = int(input(f"Digite o valor para a posição [{m}, {n}]: "))
         linha.append(valor)
     matriz.append(linha)
 
@@ -32,4 +32,5 @@ for linha in matriz:
     print("Matriz gerada:")
     print(linha)
 
+print("")
 operMatriz = int(input("Qual operação você deseja fazer?\n"))
