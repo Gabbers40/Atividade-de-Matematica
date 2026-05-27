@@ -9,28 +9,44 @@
 import time
 
 MENU = 0
+matrizes = [] # agrupa todas as matrizes
 
 print("Bem-vindo ao programa de operações envolvendo matrizes")
-time.sleep(2) # Espera para o usuário ler
+time.sleep(3)
 
-print("\033[H\033[J", end="") # Apaga o texto do prompt
+print("\033[H\033[J", end="")
 
-quantMatriz = int(input("Quantas matrizes você quer gerar? ")) # Por enquanto só guarda quantas matrizes o usuário quer fazer, não foi usada ainda
-m = int(input("Coloque o número de linhas da sua matriz: "))
-n = int(input("Coloque o número de colunas da sua matriz: "))
-matriz = []
+quantMatriz = int(input("Quantas matrizes você quer gerar? "))
 
-print("Digite os números da sua matriz:")
-for i in range(m):
-    linha = []
-    for j in range(n):
-        valor = int(input(f"Digite o valor para a posição [{m}, {n}]: "))
-        linha.append(valor)
-    matriz.append(linha)
+for i in range(quantMatriz):
+    print(f"\nMatriz {i + 1}:")
+    m = int(input("Coloque o número de linhas da sua matriz: ")) 
+    n = int(input("Coloque o número de colunas da sua matriz: "))
 
-for linha in matriz:
-    print("Matriz gerada:")
-    print(linha)
+    matriz = [] # cria apenas uma matriz
 
-print("")
-operMatriz = int(input("Qual operação você deseja fazer?\n"))
+    print("Digite os números da sua matriz:") 
+
+    for i in range(m): # função de adicionar valores
+
+        linha = []
+
+        for j in range(n):
+
+            valor = int(input(f"Digite o valor para a posição [{i}][{j}]: "))
+            linha.append(valor)
+
+        matriz.append(linha) 
+
+    matrizes.append(matriz) # adiciona o valor a linha, da linha para a matriz, e da matriz para o grupo de matrizes
+
+print("\nMatrizes Geradas: ")
+
+for indice, matriz in enumerate(matrizes):
+
+    print(f"\nMatriz {indice + 1}:") # mostra todas as matrizes
+
+    for linha in matriz:
+        print(linha)
+
+if ( m = n )
