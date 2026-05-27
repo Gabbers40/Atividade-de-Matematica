@@ -1,2 +1,3 @@
 # Atividade-de-Matematica
-bglh do tarcisio
+Atividade de matemática do Tarcísio.
+Programa em Python para calcular e fazer matrizes.
