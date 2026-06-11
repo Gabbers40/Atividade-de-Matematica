@@ -49,4 +49,24 @@ for indice, matriz in enumerate(matrizes):
     for linha in matriz:
         print(linha)
 
+# para ver se a matriz tem a mesma quantidade
+# de linha e colunas
 if ( m = n )
+
+# teste cálculo matriz soma/subtração - Angelo
+# Na teoria, eu teria que criar uma função para criar variáveis
+# de cada elemento de cada matriz, onde essa variável guarda o
+# valor de a11, e outra guarda a de a12 e assim em diante.
+# No fim, a varíavel mat1elem1 soma com o mat2elem1,
+# o mat1elem2 soma com o mat2elem2 até somar o último elemento
+# da matriz1 com a da matriz2. Aí usa matriz.append(linha) e
+# matrizes.append(matriz) para gerar a matriz resultante e imprimir.
+mat1elem1 = matrizes[0][0][0]
+mat1elem2 = matrizes[0][0][1]
+mat1elem3 = matrizes[0][1][0]
+mat1elem4 = matrizes[0][1][1]
+
+mat2elem1 = matrizes[1][0][0]
+mat2elem2 = matrizes[1][0][1]
+mat2elem3 = matrizes[1][1][0]
+mat2elem4 = matrizes[1][1][1]
