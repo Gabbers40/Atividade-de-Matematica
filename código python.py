@@ -20,20 +20,20 @@ quantMatriz = int(input("Quantas matrizes você quer gerar? "))
 
 for i in range(quantMatriz):
     print(f"\nMatriz {i + 1}:")
-    m = int(input("Coloque o número de linhas da sua matriz: ")) 
-    n = int(input("Coloque o número de colunas da sua matriz: "))
+    lin_m = int(input("Coloque o número de linhas da sua matriz: ")) 
+    col_n = int(input("Coloque o número de colunas da sua matriz: "))
 
     matriz = [] # cria apenas uma matriz
 
     print("Digite os números da sua matriz:") 
 
-    for i in range(m): # função de adicionar valores
+    for i in range(lin_m): # função de adicionar valores
 
         linha = []
 
-        for j in range(n):
+        for j in range(col_n):
 
-            valor = int(input(f"Digite o valor para a posição [{i}][{j}]: "))
+            valor = int(input(f"Digite o valor para a posição [{i+1}][{j+1}]: "))
             linha.append(valor)
 
         matriz.append(linha) 
@@ -51,8 +51,16 @@ for indice, matriz in enumerate(matrizes):
 
 # para ver se a matriz tem a mesma quantidade
 # de linha e colunas
-if ( m = n )
+if( lin_m == col_n ):
+   calc = int(input("\n === Calculadora ==="
+   "\n1 - Soma"
+   "\n2 - subtração"
+   "\n3 - Multiplicação por outra matriz"
+   "\n4 - Multiplicação por numero inteiro"
+   "\n0 - Sair do programa" ))
+        if(calc == 1):
 
+   
 # teste cálculo matriz soma/subtração - Angelo
 # Na teoria, eu teria que criar uma função para criar variáveis
 # de cada elemento de cada matriz, onde essa variável guarda o
@@ -61,12 +69,13 @@ if ( m = n )
 # o mat1elem2 soma com o mat2elem2 até somar o último elemento
 # da matriz1 com a da matriz2. Aí usa matriz.append(linha) e
 # matrizes.append(matriz) para gerar a matriz resultante e imprimir.
-mat1elem1 = matrizes[0][0][0]
-mat1elem2 = matrizes[0][0][1]
-mat1elem3 = matrizes[0][1][0]
-mat1elem4 = matrizes[0][1][1]
 
-mat2elem1 = matrizes[1][0][0]
-mat2elem2 = matrizes[1][0][1]
-mat2elem3 = matrizes[1][1][0]
-mat2elem4 = matrizes[1][1][1]
+#mat1elem1 = matrizes[0][0][0]
+#mat1elem2 = matrizes[0][0][1]
+#mat1elem3 = matrizes[0][1][0]
+#mat1elem4 = matrizes[0][1][1]
+
+#mat2elem1 = matrizes[1][0][0]
+#mat2elem2 = matrizes[1][0][1]
+#mat2elem3 = matrizes[1][1][0]
+#mat2elem4 = matrizes[1][1][1]
