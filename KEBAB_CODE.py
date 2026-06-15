@@ -30,7 +30,7 @@ while True:
         matrizes.append(matriz) # adiciona o valor a linha, da linha para a matriz, e da matriz para o grupo de matrizes
 
     def mostrar_matriz(lista):
-        for indice, matriz in enumerate(matrizes):
+        for indice, matriz in enumerate(lista):
             lin = len(matriz)
             col = len(matriz[0])
             print(f"\nMatriz {indice + 1}:") # mostra todas as matrizes
@@ -39,8 +39,8 @@ while True:
                 print(linha)
 
     def mesma_ordem(lista):
-        linhas = len(matrizes)
-        colunas = len(matrizes[0])
+        linhas = len(matrizes[0])
+        colunas = len(matrizes[0][0])
 
         for matriz in matrizes: 
             if len(matriz) != linhas:
@@ -62,8 +62,8 @@ while True:
                 quant = int(input("Digite qual você irá querer utilizar: "))
                 escolhidas.append(quant-1)
 
-            linhas = len(matrizes)
-            colunas = len(matrizes[0])
+            linhas = len(matrizes[0])
+            colunas = len(matrizes[0][0])
             
             for linha in matrizes[escolhidas[0]]:
                 resultado.append(linha.copy())
@@ -92,8 +92,8 @@ while True:
                 quant = int(input("Digite quais você irá querer utilizar: "))
                 escolhidas.append(quant-1)
 
-            linhas = len(matrizes)
-            colunas = len(matrizes[0])
+            linhas = len(matrizes[0])
+            colunas = len(matrizes[0][0])
 
             for linha in matrizes[escolhidas[0]]:
                 resultado.append(linha.copy())
@@ -117,10 +117,10 @@ while True:
         resultado = []
         ma = int(input("Escolha a matriz: "))
         escolhida.append(ma-1)
-        linhas = len(matrizes)
-        colunas = len(matrizes[0])
+        linhas = len(matrizes[0])
+        colunas = len(matrizes[0][0])
 
-        for linha in matrizes[resultado[0]]:
+        for linha in matrizes[escolhida[0]]:
             resultado.append(linha.copy())
 
         numero = int(input("Digite o número inteiro: "))
@@ -199,7 +199,7 @@ while True:
             if exc ==  1:
                 return False; 
             if exc == 2:
-                return calculo
+                return calculo()
             if exc == 3:
                 criar_matriz() 
                 
@@ -216,7 +216,7 @@ while True:
             if exc ==  1:
                 return False; 
             if exc == 2:
-                return calculo
+                return calculo()
             if exc == 3:
                 criar_matriz()
 
@@ -233,12 +233,12 @@ while True:
             if exc == 1:
                 return False
             if exc == 2:
-                return calculo
+                return calculo()
             if exc == 3:
                 criar_matriz()
 
     print("\nMatrizes Geradas: ")
     mostrar_matriz(matrizes)
     calculo()
-    if calculo == False:
+    if calculo() == False:
         break
