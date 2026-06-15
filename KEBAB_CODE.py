@@ -1,5 +1,10 @@
+# criança de função para mostrar apenas uma matriz ( use APENAS para mostrar o resultado )
+# alteração de algumas funções ( adição ) 
+
 
 import time
+import sys
+matriz = []
 matrizes = [] # agrupa todas as matrizes
 
 print("Bem-vindo ao programa de operações envolvendo matrizes")
@@ -9,13 +14,20 @@ print("\033[H\033[J", end="")
 while True: 
 
     quantMatriz = int(input("Quantas matrizes você quer gerar? "))
+    
+    def fechar_programa():
+        dec = str(input("Você deseja sair do programa? S/N")).upper()
+        if dec == "S":
+            print("Saindo do programa...")
+            time.sleep(3)
+            sys.exit()
 
     def criar_matriz():
         print(f"\nMatriz {i + 1}:")
         lin = int(input("Coloque o número de linhas da sua matriz: ")) 
         col = int(input("Coloque o número de colunas da sua matriz: "))
         
-        matriz = [] # cria apenas uma matriz
+        matriz = [] 
 
         print("Digite os números da sua matriz:") 
 
@@ -29,14 +41,19 @@ while True:
             matriz.append(linha) 
         matrizes.append(matriz) # adiciona o valor a linha, da linha para a matriz, e da matriz para o grupo de matrizes
 
-    def mostrar_matriz(lista):
+    def mostrar_matrizes(lista):
         for indice, matriz in enumerate(lista):
-            lin = len(matriz)
-            col = len(matriz[0])
+            lin = len(matrizes[0])
+            col = len(matrizes[0][0])
             print(f"\nMatriz {indice + 1}:") # mostra todas as matrizes
             print(f"Dimensão: {lin} x {col}")
             for linha in matriz:
                 print(linha)
+                
+    def mostrar_matriz(matriz):
+    
+        for linha in matriz: 
+            print(linha)
 
     def mesma_ordem(lista):
         linhas = len(matrizes[0])
@@ -51,13 +68,14 @@ while True:
 
     def adicao_matriz():
         print("Matrizes disponiveis:")
-        mostrar_matriz(matrizes)
+        mostrar_matrizes(matrizes)
         resultado = []
         escolhidas = []
-        print("Quantas você irá querer utilizar?")
-        ma = int(input()) 
+        if len(matrizes) > 2:
+            if mesma_ordem(matrizes):
+                print("Quantas você irá querer utilizar?")
+                ma = int(input()) 
 
-        if mesma_ordem(matrizes):
             for l in range(ma):
                 quant = int(input("Digite qual você irá querer utilizar: "))
                 escolhidas.append(quant-1)
@@ -76,12 +94,33 @@ while True:
                     for j in range(colunas):
 
                         resultado[i][j] += matriz[i][j]
+                        
+        elif len(matrizes) == 2:
+            if mesma_ordem(matrizes):
+                linhas = len(matrizes[0])
+                colunas = len(matrizes[0][0])
+            
+                for linha in matrizes[escolhidas[0]]:
+                    resultado.append(linha.copy())
 
-            return resultado
+                for indice in escolhidas[1:]:
+                    matriz = matrizes[indice]
+                
+                for i in range(linhas):
+
+                    for j in range(colunas):
+
+                        resultado[i][j] += matriz[i][j]
+        else:
+            print("\n Crie outra matriz para realizar a soma ")
+            quantMatriz = int(input("\nQuantas matrizes você irá querer criar? "))
+            for i in range(quantMatriz):
+                criar_matriz()
+            
     
     def subt_matriz():
         print("Matrizes disponiveis:")
-        mostrar_matriz(matrizes)
+        mostrar_matrizes(matrizes)
         resultado = []
         escolhidas = []
         print("Quantas você irá querer utilizar?")
@@ -111,7 +150,7 @@ while True:
         
     def mult_int():
         print("Matrizes disponiveis: ")
-        mostrar_matriz(matrizes)
+        mostrar_matrizes(matrizes)
 
         escolhida = []
         resultado = []
@@ -197,7 +236,7 @@ while True:
                 "\n3 - Fazer/trocar matrizes" )
             exc = int(input())
             if exc ==  1:
-                return False; 
+                fechar_programa()
             if exc == 2:
                 return calculo()
             if exc == 3:
@@ -214,7 +253,7 @@ while True:
                 "\n3 - Fazer/trocar matrizes" )
             exc = int(input())
             if exc ==  1:
-                return False; 
+                fechar_programa()
             if exc == 2:
                 return calculo()
             if exc == 3:
@@ -231,14 +270,12 @@ while True:
                   "\n3 - Fazer/trocar matrizes")
             exc = int(input())
             if exc == 1:
-                return False
+                fechar_programa()
             if exc == 2:
                 return calculo()
             if exc == 3:
                 criar_matriz()
 
     print("\nMatrizes Geradas: ")
-    mostrar_matriz(matrizes)
+    mostrar_matrizes(matrizes)
     calculo()
-    if calculo() == False:
-        break
