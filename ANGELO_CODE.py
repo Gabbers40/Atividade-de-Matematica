@@ -4,6 +4,7 @@
 # Função "fechar_programa" para sair do programa
 # Edição no código de mostrar matriz
 # Código da função calcular() quase completo
+# Criação da função de explicar passo a passo das contas
 # Notas
 
 import time
@@ -184,8 +185,37 @@ while True:
 
         return resultado
 
+    def result_passo(resultado):
+        passo_a_passo = ""
+        pap_conta = ""
+        match resultado:
+            
+            case adicao_matriz(): 
+                passo_a_passo = """Para fazer a adição de matrizes, nós temos que somar um elemento da 1ª matriz com\n 
+                                o elemento que está na mesma posição na 2ª matriz, ou seja, o 1º elemento da primeira\n
+                                matriz soma com o 1º elemento da segunda matriz (a11 + b11), o 2º elemento da\nprimeira matriz
+                                soma com 2º elemento da segunda matriz (a12 + b12) e assim por diante:\n
+                                Passo a passo:"""
 
+            case subt_matriz(): 
+                passo_a_passo = """Para fazer a subtração de matrizes, nós temos que subtrair um elemento da 1ª matriz com\n 
+                                o elemento que está na mesma posição na 2ª matriz, ou seja, o 1º elemento da primeira\n
+                                matriz subtrai com o 1º elemento da segunda matriz (a11 - b11), o 2º elemento da\nprimeira matriz
+                                subtrai com 2º elemento da segunda matriz (a12 - b12) e assim por diante:\n
+                                Passo a passo:"""
 
+            case mult_int(): 
+                passo_a_passo = """Para fazer a multiplicação de uma matriz com um número inteiro, temso que ir pegando os\n
+                                elementos da matriz e multiplicando com o número inteiro, então o 1º elemento da matriz multiplica\n
+                                com esse número (a11 x n), o 2º elemento multiplica com esse número (a12 x n) e assim em diante:
+                                Passo a passo:""" 
+
+            case mult_matriz(): 
+                passo_a_passo = """Para fazer a multiplicação de matrizes, nós temos que multiplicar um elemento da 1ª matriz com\n 
+                                o elemento que está na mesma posição na 2ª matriz, ou seja, o 1º elemento da primeira\n
+                                matriz multiplica com o 1º elemento da segunda matriz (a11 x b11), o 2º elemento da\nprimeira matriz
+                                multiplica com 2º elemento da segunda matriz (a12 x b12) e assim por diante:\n
+                                Passo a passo:"""     
 
     for i in range(quantMatriz):
         criar_matriz()
