@@ -2,6 +2,8 @@
 # O que adicionei:
 # Função "fechar_programa" para sair do programa
 # Edição no código de mostrar matriz
+# Código da função calcular() quase completo
+# Notas
 
 import time
 import sys
@@ -189,10 +191,10 @@ while True:
     
     # para ver se a matriz tem a mesma quantidade
     # de linha e colunas
-    def calculo():
+    def calculo(): # Nota de Angelo: Não dá pra usar if com else aqui ou tanto faz?
         print("\n === Calculadora ==="
             "\n1 - Soma"
-            "\n2 - subtração"
+            "\n2 - Subtração"
             "\n3 - Multiplicação por outra matriz"
             "\n4 - Multiplicação por numero inteiro"
             "\n0 - Sair do programa" )
@@ -248,6 +250,26 @@ while True:
                 return calculo()
             if exc == 3:
                 criar_matriz()
+
+        if (calc == 4): # editar depois para multiplicação por número inteiro
+            resultado = mult_int()
+            print("\nResultado da multiplicação por número inteiro : ")
+            mostrar_matriz(resultado)
+
+            print("\n === Calculadora ==="
+                  "\n1 - Deseja fechar o programa"
+                  "\n2 - Escolher operação"
+                  "\n3 - Fazer/trocar matrizes")
+            exc = int(input())
+            if exc == 1:
+                fechar_programa()
+            if exc == 2:
+                return calculo()
+            if exc == 3:
+                criar_matriz()
+
+        if (calc == 0):
+            fechar_programa()
 
     print("\nMatrizes Geradas: ")
     mostrar_matriz(matrizes)
