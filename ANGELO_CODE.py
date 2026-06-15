@@ -1,14 +1,8 @@
-#Código do Angelo
-# Teste teste github extension worked yay
-# O que adicionei:
-# Função "fechar_programa" para sair do programa
-# Edição no código de mostrar matriz
-# Código da função calcular() quase completo
-# Criação da função de explicar passo a passo das contas
-# Notas
-
+# o que foi adicionado:
+# pequena junção do ANGELO_CODE com o KEBAB_CODE
 import time
 import sys
+matriz = []
 matrizes = [] # agrupa todas as matrizes
 
 print("Bem-vindo ao programa de operações envolvendo matrizes")
@@ -18,22 +12,20 @@ print("\033[H\033[J", end="")
 while True: 
 
     quantMatriz = int(input("Quantas matrizes você quer gerar? "))
-
+    
     def fechar_programa():
-        dec = str(input("Você deseja sair do programa? S/N : ")).upper()
+        dec = str(input("Você deseja sair do programa? S/N")).upper()
         if dec == "S":
             print("Saindo do programa...")
             time.sleep(3)
             sys.exit()
-        elif dec == "N":
-            return
 
     def criar_matriz():
         print(f"\nMatriz {i + 1}:")
         lin = int(input("Coloque o número de linhas da sua matriz: ")) 
         col = int(input("Coloque o número de colunas da sua matriz: "))
         
-        matriz = [] # cria apenas uma matriz
+        matriz = [] 
 
         print("Digite os números da sua matriz:") 
 
@@ -47,7 +39,7 @@ while True:
             matriz.append(linha) 
         matrizes.append(matriz) # adiciona o valor a linha, da linha para a matriz, e da matriz para o grupo de matrizes
 
-    def mostrar_matriz(lista):
+    def mostrar_matrizes(lista):
         for indice, matriz in enumerate(lista):
             lin = len(matrizes[0])
             col = len(matrizes[0][0])
@@ -55,6 +47,11 @@ while True:
             print(f"Dimensão: {lin} x {col}")
             for linha in matriz:
                 print(linha)
+                
+    def mostrar_matriz(matriz):
+    
+        for linha in matriz: 
+            print(linha)
 
     def mesma_ordem(lista):
         linhas = len(matrizes[0])
@@ -69,13 +66,90 @@ while True:
 
     def adicao_matriz():
         print("Matrizes disponiveis:")
-        mostrar_matriz(matrizes)
+        mostrar_matrizes(matrizes)
+        matriz = []
         resultado = []
         escolhidas = []
-        print("Quantas você irá querer utilizar?")
-        ma = int(input()) 
+        if len(matrizes) > 2:
+            if mesma_ordem(matrizes) == True:
+                print("Quantas você irá querer utilizar?")
+                ma = int(input()) 
 
-        if mesma_ordem(matrizes):
+            for l in range(ma):
+                quant = int(input("Digite qual você irá querer utilizar: "))
+                escolhidas.append(quant-1)
+                
+                if len(escolhidas) <= 2:
+                    linhas = len(matrizes[0])
+                    colunas = len(matrizes[0][0])
+    
+                    for linha in matrizes[0]:
+                        resultado.append(linha.copy())
+                    
+                    for linha in matrizes[1]:
+                        matriz.append(linha.copy())
+                
+                    for i in range(linhas):
+
+                        for j in range(colunas):
+
+                            resultado[i][j] += matriz[i][j]
+                else:
+                    linhas = len(matrizes[0])
+                    colunas = len(matrizes[0][0])
+                    
+                    for linha in matrizes[escolhidas[0]]:
+                        resultado.append(linha.copy())
+
+                    for indice in escolhidas[1:]:
+                        matriz = matrizes[indice]
+                        for i in range(linhas):
+                            for j in range(colunas):
+                                resultado[i][j] += matriz[i][j]
+            else:
+                print("É impossivel fazer soma com matrizes de ordens diferentes! ")
+                print("Crie outras matrizes de ordem igual para poder realizar este cálculo: ")
+                criar_matriz()
+                return adicao_matriz()
+                            
+        elif len(matrizes) == 2:
+            if mesma_ordem(matrizes):
+                linhas = len(matrizes[0])
+                colunas = len(matrizes[0][0])
+    
+                for linha in matrizes[0]:
+                    resultado.append(linha.copy())
+                    
+                for linha in matrizes[1]:
+                    matriz.append(linha.copy())
+                
+                for i in range(linhas):
+
+                    for j in range(colunas):
+
+                        resultado[i][j] += matriz[i][j]
+                        
+            return resultado
+        
+        else:
+            print("Crie outra matriz para realizar a soma ")
+            quantMatriz = int(input("\nQuantas matrizes você irá querer criar? "))
+            for i in range(quantMatriz):
+                criar_matriz()
+                return adicao_matriz()
+            
+    
+    def subt_matriz():
+        print("Matrizes disponiveis:")
+        mostrar_matrizes(matrizes)
+        matriz = []
+        resultado = []
+        escolhidas = []
+        if len(matrizes) > 2:
+            if mesma_ordem(matrizes):
+                print("Quantas você irá querer utilizar?")
+                ma = int(input()) 
+
             for l in range(ma):
                 quant = int(input("Digite qual você irá querer utilizar: "))
                 escolhidas.append(quant-1)
@@ -83,88 +157,65 @@ while True:
             linhas = len(matrizes[0])
             colunas = len(matrizes[0][0])
             
-            resultado = [[0 for _ in range(colunas)] for _ in range(linhas)]
-        
-            passo_a_passo = "Passo a passo da Adição:\n"
+            for linha in matrizes[escolhidas[0]]:
+                resultado.append(linha.copy())
 
-            for i in range(linhas):
-                for j in range(colunas):
-                    termos_soma = []
-                    soma_posicao = 0
-                    
-                    for idx in escolhidas:
-                        valor = matrizes[idx][i][j]
-                        termos_soma.append(str(valor))
-                        soma_posicao += valor
-                    
-                    resultado[i][j] = soma_posicao
-                    
-                    passo_a_passo += f"  Posição [{i+1}][{j+1}]: {' + '.join(termos_soma)} = {soma_posicao}\n"
+            for indice in escolhidas[1:]:
+                matriz = matrizes[indice]
+                
+                for i in range(linhas):
 
-            print("\n" + passo_a_passo)
+                    for j in range(colunas):
+
+                        resultado[i][j] -= matriz[i][j]
             return resultado
+                        
+        elif len(matrizes) == 2:
+            if mesma_ordem(matrizes):
+                linhas = len(matrizes[0])
+                colunas = len(matrizes[0][0])
     
-    def subt_matriz():
-        print("Matrizes disponiveis:")
-        mostrar_matriz(matrizes)
-        resultado = []
-        escolhidas = []
-        print("Quantas você irá querer utilizar?")
-        ma = int(input()) 
-
-        if mesma_ordem(matrizes):
-            for l in range(ma):
-                quant = int(input("Digite quais você irá querer utilizar: "))
-                escolhidas.append(quant-1)
-
-            linhas = len(matrizes[escolhidas[0]])
-            colunas = len(matrizes[escolhidas[0]][0])
-
-            resultado = [[0 for _ in range(colunas)] for _ in range(linhas)]
-            
-            passo_a_passo = "Passo a passo da Subtração:\n"
-
-            for i in range(linhas):
-                for j in range(colunas):
-                    termos_sub = []
+                for linha in matrizes[0]:
+                    resultado.append(linha.copy())
                     
-                    sub_posicao = matrizes[escolhidas[0]][i][j]
-                    termos_sub.append(str(sub_posicao))
-                    
-                    for idx in escolhidas[1:]:
-                        valor = matrizes[idx][i][j]
-                        termos_sub.append(str(valor))
-                        sub_posicao -= valor
-                    
-                    resultado[i][j] = sub_posicao
-                    
-                    passo_a_passo += f"  Posição [{i+1}][{j+1}]: {' - '.join(termos_sub)} = {sub_posicao}\n"
+                for linha in matrizes[1]:
+                    matriz.append(linha.copy())
+                
+                for i in range(linhas):
 
-            print("\n" + passo_a_passo)
+                    for j in range(colunas):
+
+                        resultado[i][j] -= matriz[i][j]
+                        
             return resultado
+        
+        else:
+            print("Crie outra matriz para realizar a subtração ")
+            quantMatriz = int(input("\nQuantas matrizes você irá querer criar? "))
+            for i in range(quantMatriz):
+                criar_matriz()
+                return adicao_matriz()
         
     def mult_int():
         print("Matrizes disponiveis: ")
-        mostrar_matriz(matrizes)
+        mostrar_matrizes(matrizes)
 
+        escolhida = []
+        resultado = []
         ma = int(input("Escolha a matriz: "))
-        idx_matriz = ma - 1
-        linhas = len(matrizes[idx_matriz])
-        colunas = len(matrizes[idx_matriz][0])
+        escolhida.append(ma-1)
+        linhas = len(matrizes[0])
+        colunas = len(matrizes[0][0])
 
-        resultado = [[0 for _ in range(colunas)] for _ in range(linhas)]
-        numero = float(input("Digite o número multiplicador: "))
-        
-        passo_a_passo = f"Passo a passo da Multiplicação por {numero}:\n"
+        for linha in matrizes[escolhida[0]]:
+            resultado.append(linha.copy())
+
+        numero = int(input("Digite o número inteiro: "))
 
         for i in range(linhas):
             for j in range(colunas):
-                valor_original = matrizes[idx_matriz][i][j]
-                resultado[i][j] = valor_original * numero
-                
-                passo_a_passo += f"  Posição [{i+1}][{j+1}]: {valor_original} x {numero} = {resultado[i][j]}\n"
+                resultado[i][j] *= numero
 
-        print("\n" + passo_a_passo)
         return resultado
 
     def mult_matriz():
@@ -205,33 +256,34 @@ while True:
 
         return resultado
 
+
+
+
     for i in range(quantMatriz):
         criar_matriz()
     
     # para ver se a matriz tem a mesma quantidade
     # de linha e colunas
-    def calculo(): # Nota de Angelo: Não dá pra usar if com else aqui ou tanto faz?
+    def calculo():
         print("\n === Calculadora ==="
             "\n1 - Soma"
             "\n2 - Subtração"
-            "\n3 - Multiplicação por outra matriz"
-            "\n4 - Multiplicação por numero inteiro"
+            "\n3 - Multiplicação por número inteiro"
+            "\n4 - Multiplicação por outra matriz"
             "\n0 - Sair do programa" )
         calc = int(input("\nEscolha uma opção: "))
 
         if (calc == 1):
             resultado = adicao_matriz()
             print("\nResultado da adição: ")
-            time.sleep(1)
             mostrar_matriz(resultado)
-            time.sleep(3)
             
             print("\n === Calculadora ==="
                 "\n1 - Deseja fechar o programa" 
                 "\n2 - Escolher operação"
                 "\n3 - Fazer/trocar matrizes" )
             exc = int(input())
-            if exc == 1:
+            if exc ==  1:
                 fechar_programa()
             if exc == 2:
                 return calculo()
@@ -241,9 +293,7 @@ while True:
         if(calc == 2):
             resultado = subt_matriz()
             print("\nResultado da subtração: ")
-            time.sleep(3)
             mostrar_matriz(resultado)
-            time.sleep(3)
             
             print("\n === Calculadora ==="
                 "\n1 - Deseja fechar o programa" 
@@ -260,9 +310,7 @@ while True:
         if (calc == 3):
             resultado = mult_int()
             print("\nResultado da multiplicação : ")
-            time.sleep(3)
             mostrar_matriz(resultado)
-            time.sleep(3)
 
             print("\n === Calculadora ==="
                   "\n1 - Deseja fechar o programa"
@@ -276,12 +324,10 @@ while True:
             if exc == 3:
                 criar_matriz()
 
-        if (calc == 4): # editar depois para multiplicação por número inteiro
-            resultado = mult_int()
-            print("\nResultado da multiplicação por número inteiro : ")
-            time.sleep(3)
+        if (calc == 4):
+            resultado = mult_matriz()
+            print("\nResultado da multiplicação : ")
             mostrar_matriz(resultado)
-            time.sleep(3)
 
             print("\n === Calculadora ==="
                   "\n1 - Deseja fechar o programa"
@@ -296,8 +342,8 @@ while True:
                 criar_matriz()
 
         if (calc == 0):
-            fechar_programa()
+                fechar_programa()
 
     print("\nMatrizes Geradas: ")
-    mostrar_matriz(matrizes)
+    mostrar_matrizes(matrizes)
     calculo()
