@@ -118,7 +118,65 @@ while True:
 
         return resultado
         
-    
+    def mult_int():
+
+    print("Escolha a matriz:")
+    indice = int(input()) - 1
+
+    numero = int(input("Digite o número inteiro: "))
+
+    matriz = matrizes[indice]
+
+    resultado = []
+
+    for linha in matriz:
+
+        nova_linha = []
+
+        for elemento in linha:
+
+            nova_linha.append(elemento * numero)
+
+        resultado.append(nova_linha)
+
+    return resultado
+
+    def mult_matriz():
+
+    print("Primeira matriz:")
+    a = int(input()) - 1
+
+    print("Segunda matriz:")
+    b = int(input()) - 1
+
+    matriz1 = matrizes[a]
+    matriz2 = matrizes[b]
+
+    if len(matriz1[0]) != len(matriz2):
+
+        print("Não é possível multiplicar.")
+
+        return
+
+    resultado = []
+
+    for i in range(len(matriz1)):
+
+        linha = []
+
+        for j in range(len(matriz2[0])):
+
+            soma = 0
+
+            for k in range(len(matriz2)):
+
+                soma += matriz1[i][k] * matriz2[k][j]
+
+            linha.append(soma)
+
+        resultado.append(linha)
+
+    return resultado
 
 
 
