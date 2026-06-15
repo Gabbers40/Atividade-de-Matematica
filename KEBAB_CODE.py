@@ -1,6 +1,3 @@
-# O que eu fiz:
-# coloquei multiplicação de numero inteiro
-# coloquei multiplicação de matriz
 
 import time
 matrizes = [] # agrupa todas as matrizes
@@ -10,8 +7,6 @@ time.sleep(3)
 print("\033[H\033[J", end="")
 
 while True: 
-
-    
 
     quantMatriz = int(input("Quantas matrizes você quer gerar? "))
 
@@ -44,8 +39,8 @@ while True:
                 print(linha)
 
     def mesma_ordem(lista):
-        linhas = len(matrizes[0])
-        colunas = len(matrizes[0][0])
+        linhas = len(matrizes)
+        colunas = len(matrizes[0])
 
         for matriz in matrizes: 
             if len(matriz) != linhas:
@@ -67,8 +62,8 @@ while True:
                 quant = int(input("Digite qual você irá querer utilizar: "))
                 escolhidas.append(quant-1)
 
-            linhas = len(matrizes[0])
-            colunas = len(matrizes[0][0])
+            linhas = len(matrizes)
+            colunas = len(matrizes[0])
             
             for linha in matrizes[escolhidas[0]]:
                 resultado.append(linha.copy())
@@ -82,7 +77,7 @@ while True:
 
                         resultado[i][j] += matriz[i][j]
 
-        return resultado
+            return resultado
     
     def subt_matriz():
         print("Matrizes disponiveis:")
@@ -97,8 +92,8 @@ while True:
                 quant = int(input("Digite quais você irá querer utilizar: "))
                 escolhidas.append(quant-1)
 
-            linhas = len(matrizes[0])
-            colunas = len(matrizes[0][0])
+            linhas = len(matrizes)
+            colunas = len(matrizes[0])
 
             for linha in matrizes[escolhidas[0]]:
                 resultado.append(linha.copy())
@@ -115,64 +110,64 @@ while True:
         return resultado
         
     def mult_int():
+        print("Matrizes disponiveis: ")
+        mostrar_matriz(matrizes)
 
-    print("Escolha a matriz:")
-    indice = int(input()) - 1
+        escolhida = []
+        resultado = []
+        ma = int(input("Escolha a matriz: "))
+        escolhida.append(ma-1)
+        linhas = len(matrizes)
+        colunas = len(matrizes[0])
 
-    numero = int(input("Digite o número inteiro: "))
+        for linha in matrizes[resultado[0]]:
+            resultado.append(linha.copy())
 
-    matriz = matrizes[indice]
+        numero = int(input("Digite o número inteiro: "))
 
-    resultado = []
+        for i in range(linhas):
+            for j in range(colunas):
+                resultado[i][j] *= numero
 
-    for linha in matriz:
-
-        nova_linha = []
-
-        for elemento in linha:
-
-            nova_linha.append(elemento * numero)
-
-        resultado.append(nova_linha)
-
-    return resultado
+        return resultado
 
     def mult_matriz():
 
-    print("Primeira matriz:")
-    a = int(input()) - 1
+        print("Primeira matriz:")
+        a = int(input()) - 1
 
-    print("Segunda matriz:")
-    b = int(input()) - 1
+        print("Segunda matriz:")
+        b = int(input()) - 1
 
-    matriz1 = matrizes[a]
-    matriz2 = matrizes[b]
+        matriz1 = matrizes[a]
+        matriz2 = matrizes[b]
 
-    if len(matriz1[0]) != len(matriz2):
+        if len(matriz1[0]) != len(matriz2):
 
-        print("Não é possível multiplicar.")
+            print("Não é possível multiplicar.")
 
-        return
+            return
 
-    resultado = []
+        resultado = []
 
-    for i in range(len(matriz1)):
+        for i in range(len(matriz1)):
 
-        linha = []
+            linha = []
 
-        for j in range(len(matriz2[0])):
+            for j in range(len(matriz2[0])):
 
-            soma = 0
+                soma = 0
 
-            for k in range(len(matriz2)):
 
-                soma += matriz1[i][k] * matriz2[k][j]
+                for k in range(len(matriz2)):
 
-            linha.append(soma)
+                    soma += matriz1[i][k] * matriz2[k][j]
 
-        resultado.append(linha)
+                    linha.append(soma)
 
-    return resultado
+                    resultado.append(linha)
+
+        return resultado
 
 
 
@@ -191,7 +186,7 @@ while True:
             "\n0 - Sair do programa" )
         calc = int(input("\nEscolha uma opção: "))
 
-        if (calc-1) == 0:
+        if (calc == 1):
             resultado = adicao_matriz()
             print("\nResultado da adição: ")
             mostrar_matriz(resultado)
@@ -208,7 +203,7 @@ while True:
             if exc == 3:
                 criar_matriz() 
                 
-        if calc == 2:
+        if(calc == 2):
             resultado = subt_matriz()
             print("\nResultado da subração: ")
             mostrar_matriz(resultado)
@@ -223,11 +218,27 @@ while True:
             if exc == 2:
                 return calculo
             if exc == 3:
-                criar_matriz() 
-    
-    
+                criar_matriz()
+
+        if (calc == 3):
+            resultado = mult_int()
+            print("\nResultado da multiplicação : ")
+            mostrar_matriz(resultado)
+
+            print("\n === Calculadora ==="
+                  "\n1 - Deseja fechar o programa"
+                  "\n2 - Escolher operação"
+                  "\n3 - Fazer/trocar matrizes")
+            exc = int(input())
+            if exc == 1:
+                return False
+            if exc == 2:
+                return calculo
+            if exc == 3:
+                criar_matriz()
+
     print("\nMatrizes Geradas: ")
     mostrar_matriz(matrizes)
     calculo()
     if calculo == False:
-        break;
+        break
