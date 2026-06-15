@@ -20,11 +20,13 @@ while True:
     quantMatriz = int(input("Quantas matrizes você quer gerar? "))
 
     def fechar_programa():
-        dec = str(input("Você deseja sair do programa? S/N")).upper()
+        dec = str(input("Você deseja sair do programa? S/N : ")).upper()
         if dec == "S":
             print("Saindo do programa...")
             time.sleep(3)
             sys.exit()
+        elif dec == "N":
+            return
 
     def criar_matriz():
         print(f"\nMatriz {i + 1}:")
@@ -115,22 +117,31 @@ while True:
                 quant = int(input("Digite quais você irá querer utilizar: "))
                 escolhidas.append(quant-1)
 
-            linhas = len(matrizes[0])
-            colunas = len(matrizes[0][0])
+            linhas = len(matrizes[escolhidas[0]])
+            colunas = len(matrizes[escolhidas[0]][0])
 
-            for linha in matrizes[escolhidas[0]]:
-                resultado.append(linha.copy())
+            resultado = [[0 for _ in range(colunas)] for _ in range(linhas)]
+            
+            passo_a_passo = "Passo a passo da Subtração:\n"
 
-            for indice in escolhidas[1:]:
-                matriz = matrizes[indice]
-                
-                for i in range(linhas):
+            for i in range(linhas):
+                for j in range(colunas):
+                    termos_sub = []
+                    
+                    sub_posicao = matrizes[escolhidas[0]][i][j]
+                    termos_sub.append(str(sub_posicao))
+                    
+                    for idx in escolhidas[1:]:
+                        valor = matrizes[idx][i][j]
+                        termos_sub.append(str(valor))
+                        sub_posicao -= valor
+                    
+                    resultado[i][j] = sub_posicao
+                    
+                    passo_a_passo += f"  Posição [{i+1}][{j+1}]: {' - '.join(termos_sub)} = {sub_posicao}\n"
 
-                    for j in range(colunas):
-
-                        resultado[i][j] -= matriz[i][j]
-
-        return resultado
+            print("\n" + passo_a_passo)
+            return resultado
         
     def mult_int():
         print("Matrizes disponiveis: ")
@@ -211,7 +222,9 @@ while True:
         if (calc == 1):
             resultado = adicao_matriz()
             print("\nResultado da adição: ")
+            time.sleep(1)
             mostrar_matriz(resultado)
+            time.sleep(3)
             
             print("\n === Calculadora ==="
                 "\n1 - Deseja fechar o programa" 
@@ -227,8 +240,10 @@ while True:
                 
         if(calc == 2):
             resultado = subt_matriz()
-            print("\nResultado da subração: ")
+            print("\nResultado da subtração: ")
+            time.sleep(3)
             mostrar_matriz(resultado)
+            time.sleep(3)
             
             print("\n === Calculadora ==="
                 "\n1 - Deseja fechar o programa" 
@@ -245,7 +260,9 @@ while True:
         if (calc == 3):
             resultado = mult_int()
             print("\nResultado da multiplicação : ")
+            time.sleep(3)
             mostrar_matriz(resultado)
+            time.sleep(3)
 
             print("\n === Calculadora ==="
                   "\n1 - Deseja fechar o programa"
@@ -262,7 +279,9 @@ while True:
         if (calc == 4): # editar depois para multiplicação por número inteiro
             resultado = mult_int()
             print("\nResultado da multiplicação por número inteiro : ")
+            time.sleep(3)
             mostrar_matriz(resultado)
+            time.sleep(3)
 
             print("\n === Calculadora ==="
                   "\n1 - Deseja fechar o programa"
