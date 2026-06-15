@@ -81,18 +81,25 @@ while True:
             linhas = len(matrizes[0])
             colunas = len(matrizes[0][0])
             
-            for linha in matrizes[escolhidas[0]]:
-                resultado.append(linha.copy())
+            resultado = [[0 for _ in range(colunas)] for _ in range(linhas)]
+        
+            passo_a_passo = "Passo a passo da Adição:\n"
 
-            for indice in escolhidas[1:]:
-                matriz = matrizes[indice]
-                
-                for i in range(linhas):
+            for i in range(linhas):
+                for j in range(colunas):
+                    termos_soma = []
+                    soma_posicao = 0
+                    
+                    for idx in escolhidas:
+                        valor = matrizes[idx][i][j]
+                        termos_soma.append(str(valor))
+                        soma_posicao += valor
+                    
+                    resultado[i][j] = soma_posicao
+                    
+                    passo_a_passo += f"  Posição [{i+1}][{j+1}]: {' + '.join(termos_soma)} = {soma_posicao}\n"
 
-                    for j in range(colunas):
-
-                        resultado[i][j] += matriz[i][j]
-
+            print("\n" + passo_a_passo)
             return resultado
     
     def subt_matriz():
@@ -129,22 +136,24 @@ while True:
         print("Matrizes disponiveis: ")
         mostrar_matriz(matrizes)
 
-        escolhida = []
-        resultado = []
         ma = int(input("Escolha a matriz: "))
-        escolhida.append(ma-1)
-        linhas = len(matrizes[0])
-        colunas = len(matrizes[0][0])
+        idx_matriz = ma - 1
+        linhas = len(matrizes[idx_matriz])
+        colunas = len(matrizes[idx_matriz][0])
 
-        for linha in matrizes[escolhida[0]]:
-            resultado.append(linha.copy())
-
-        numero = int(input("Digite o número inteiro: "))
+        resultado = [[0 for _ in range(colunas)] for _ in range(linhas)]
+        numero = float(input("Digite o número multiplicador: "))
+        
+        passo_a_passo = f"Passo a passo da Multiplicação por {numero}:\n"
 
         for i in range(linhas):
             for j in range(colunas):
-                resultado[i][j] *= numero
+                valor_original = matrizes[idx_matriz][i][j]
+                resultado[i][j] = valor_original * numero
+                
+                passo_a_passo += f"  Posição [{i+1}][{j+1}]: {valor_original} x {numero} = {resultado[i][j]}\n"
 
+        print("\n" + passo_a_passo)
         return resultado
 
     def mult_matriz():
@@ -184,38 +193,6 @@ while True:
                     resultado.append(linha)
 
         return resultado
-
-    def result_passo(resultado):
-        passo_a_passo = ""
-        pap_conta = ""
-        match resultado:
-            
-            case adicao_matriz(): 
-                passo_a_passo = """Para fazer a adição de matrizes, nós temos que somar um elemento da 1ª matriz com\n 
-                                o elemento que está na mesma posição na 2ª matriz, ou seja, o 1º elemento da primeira\n
-                                matriz soma com o 1º elemento da segunda matriz (a11 + b11), o 2º elemento da\nprimeira matriz
-                                soma com 2º elemento da segunda matriz (a12 + b12) e assim por diante:\n
-                                Passo a passo:"""
-
-            case subt_matriz(): 
-                passo_a_passo = """Para fazer a subtração de matrizes, nós temos que subtrair um elemento da 1ª matriz com\n 
-                                o elemento que está na mesma posição na 2ª matriz, ou seja, o 1º elemento da primeira\n
-                                matriz subtrai com o 1º elemento da segunda matriz (a11 - b11), o 2º elemento da\nprimeira matriz
-                                subtrai com 2º elemento da segunda matriz (a12 - b12) e assim por diante:\n
-                                Passo a passo:"""
-
-            case mult_int(): 
-                passo_a_passo = """Para fazer a multiplicação de uma matriz com um número inteiro, temso que ir pegando os\n
-                                elementos da matriz e multiplicando com o número inteiro, então o 1º elemento da matriz multiplica\n
-                                com esse número (a11 x n), o 2º elemento multiplica com esse número (a12 x n) e assim em diante:
-                                Passo a passo:""" 
-
-            case mult_matriz(): 
-                passo_a_passo = """Para fazer a multiplicação de matrizes, nós temos que multiplicar um elemento da 1ª matriz com\n 
-                                o elemento que está na mesma posição na 2ª matriz, ou seja, o 1º elemento da primeira\n
-                                matriz multiplica com o 1º elemento da segunda matriz (a11 x b11), o 2º elemento da\nprimeira matriz
-                                multiplica com 2º elemento da segunda matriz (a12 x b12) e assim por diante:\n
-                                Passo a passo:"""     
 
     for i in range(quantMatriz):
         criar_matriz()
@@ -305,5 +282,3 @@ while True:
     print("\nMatrizes Geradas: ")
     mostrar_matriz(matrizes)
     calculo()
-    if calculo() == False:
-        break
