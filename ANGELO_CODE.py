@@ -1,5 +1,3 @@
-# o que foi adicionado:
-# pequena junção do ANGELO_CODE com o KEBAB_CODE
 import time
 import sys
 matriz = []
@@ -11,7 +9,7 @@ print("\033[H\033[J", end="")
 
 while True: 
 
-    quantMatriz = int(input("Quantas matrizes você quer gerar? "))
+    quantMatriz = int(input("Quantas matrizes você quer gerar? :"))
     
     def fechar_programa():
         dec = str(input("Você deseja sair do programa? S/N")).upper()
@@ -51,15 +49,15 @@ while True:
     def mostrar_matriz(matriz):
     
         for linha in matriz: 
-            print(linha)
+            print(linha) # imprime as linhas da matriz
 
-    def mesma_ordem(lista):
+    def mesma_ordem(lista): # função para ver se a matriz é de mesma ordem
         linhas = len(matrizes[0])
         colunas = len(matrizes[0][0])
 
         for matriz in matrizes: 
             if len(matriz) != linhas:
-                return False
+                return False 
             if len(matriz[0]) != colunas:
                 return False
         return True
@@ -71,12 +69,11 @@ while True:
         resultado = []
         escolhidas = []
         
-        if len(matrizes) > 2:
+        if len(matrizes) > 2: # verifica se tem mais de 2 matrizes no array
             if mesma_ordem(matrizes):
                 print("Quantas você irá querer utilizar?")
                 ma = int(input()) 
 
-                # Este loop PRECISA ficar aqui dentro do 'if mesma_ordem'
                 for l in range(ma):
                     quant = int(input("Digite qual você irá querer utilizar: "))
                     escolhidas.append(quant-1)
@@ -93,9 +90,8 @@ while True:
                         for j in range(colunas):
                             resultado[i][j] += matriz[i][j]
            
-                ver_passo = input("\nDeseja ver o passo a passo da adição? (S/N): ").upper()
-                if ver_passo == "S":
-                    # Enviamos a lista completa de matrizes que foram escolhidas para somar
+                ver_passo = input("\nDeseja ver o passo a passo da adição? (S/N): ").upper() # passo a passo da adição
+                if ver_passo == "S": 
                     matrizes_para_explicar = [matrizes[idx] for idx in escolhidas]
                     explicar_soma_multipla(matrizes_para_explicar)
 
@@ -116,7 +112,7 @@ while True:
                     for j in range(colunas):
                         resultado[i][j] += matrizes[1][i][j]
         
-                ver_passo = input("\nDeseja ver o passo a passo da soma? (S/N): ").upper()
+                ver_passo = input("\nDeseja ver o passo a passo da soma? (S/N): ").upper() # passo a passo da adição
                 if ver_passo == "S":
                     explicar_soma(matrizes[0], matrizes[1])
                             
@@ -132,7 +128,7 @@ while True:
                 criar_matriz()
             return adicao_matriz()
 
-    def explicar_soma(m1, m2):
+    def explicar_soma(m1, m2): # Função de passo a passo da adição
         print("\n--- PASSO A PASSO DA SOMA ---")
         print("Para somar matrizes, somamos os elementos que estão na mesma posição:")
         linhas = len(m1)
@@ -144,7 +140,7 @@ while True:
                 v2 = m2[i][j]
                 print(f"Posição [{i+1}][{j+1}]: {v1} + {v2} = {v1 + v2}") 
 
-    def explicar_soma_multipla(lista_matrizes):
+    def explicar_soma_multipla(lista_matrizes): # Função de passo a passo da adição múltipla
         print("\n--- PASSO A PASSO DA SOMA (MÚLTIPLAS MATRIZES) ---")
         print("Somamos os elementos correspondentes de todas as matrizes escolhidas:")
         linhas = len(lista_matrizes[0])
@@ -164,12 +160,11 @@ while True:
         resultado = []
         escolhidas = []
         
-        if len(matrizes) > 2:
+        if len(matrizes) > 2: # verifica se tem mais de 2 matrizes no array
             if mesma_ordem(matrizes):
                 print("Quantas você irá querer utilizar?")
                 ma = int(input()) 
 
-                # Ajustado: Agora as perguntas ficam dentro da validação de ordem
                 for l in range(ma):
                     quant = int(input("Digite qual você irá querer utilizar: "))
                     escolhidas.append(quant-1)
@@ -188,7 +183,6 @@ while True:
            
                 ver_passo = input("\nDeseja ver o passo a passo da subtração? (S/N): ").upper()
                 if ver_passo == "S":
-                    # Criamos a lista com as matrizes reais que foram selecionadas
                     matrizes_para_explicar = [matrizes[idx] for idx in escolhidas]
                     explicar_subt_multipla(matrizes_para_explicar)
 
@@ -348,8 +342,6 @@ while True:
     for i in range(quantMatriz):
         criar_matriz()
     
-    # para ver se a matriz tem a mesma quantidade
-    # de linha e colunas
     def calculo():
         print("\n === Calculadora ==="
             "\n1 - Soma"
