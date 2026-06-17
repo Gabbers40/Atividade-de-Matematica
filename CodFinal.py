@@ -66,12 +66,13 @@ while True:
         mostrar_matrizes(lista)
         escolhidas = []
 
-        valor = int(input("Digite a matriz desejada: "))
-        if 1 <= valor <= len(lista):
-            escolhidas.append(valor - 1)
-        else:
-            print("Matriz inexistente!")
-            return []
+        while True:
+            valor = int(input("Digite a matriz desejada: "))
+            if 1 <= valor <= len(lista):
+                escolhidas.append(valor - 1)
+                break
+            else:
+                print("Matriz inexistente!")
         
         return escolhidas
 
@@ -82,12 +83,13 @@ while True:
 
         quant = int(input("Quantas você quer utilizar? "))
         for i in range(quant):
-            valor = int(input(f"Digite a {i + 1}ª Matriz: "))
-            if 1 <= valor <= len(matrizes):
-                escolhidas.append(valor - 1)
-                break
-            else:
-                print("Matriz inexistente!")
+            while True:
+                valor = int(input(f"Digite a {i + 1}ª Matriz: "))
+                if 1 <= valor <= len(lista):
+                    escolhidas.append(valor - 1)
+                    break
+                else:
+                    print("Matriz inexistente!")
 
         return escolhidas
 
@@ -110,12 +112,12 @@ while True:
                     for i in range(linhas):
                         for j in range(colunas):
                             resultado[i][j] += matriz[i][j]
-
+        
                 ver_passo = input("\nDeseja ver o passo a passo da adição? (S/N): ").upper()  # passo a passo da adição
                 if ver_passo == "S":
                     matrizes_para_explicar = [matrizes[idx] for idx in escolhidas]
                     explicar_soma_multipla(matrizes_para_explicar)
-
+                
                 return resultado
             else:
                 print("As matrizes não possuem a mesma ordem para serem somadas.")
@@ -294,42 +296,82 @@ while True:
     def mult_matriz():
         matriz = []
         resultado = []
-        escolhidas = escolher_matrizes(matrizes)
 
-        for linha in matrizes[escolhidas[0]]:
-            resultado.append(linha.copy())
+        if len(matrizes) > 2:
+            escolhidas = escolher_matrizes(matrizes)
+            linhas = len(matrizes[0])
+            colunas = len(matrizes[0][0])
+            
+            for linha in matrizes[escolhidas[0]]:
+                resultado.append(linha.copy())
 
-        for indice in escolhidas[1:]:
-            matriz = matrizes[indice]
+            for indice in escolhidas[1:]:
+                matriz = matrizes[indice]
 
-            if len(resultado[0]) != len(matriz):
-                print("Não é possível multiplicar.")
+                if len(resultado[0]) != len(matriz):
+                    print("Não é possível multiplicar.")
+                    return None
 
-                return None
+                novo_resultado = []
+                for i in range(len(resultado)):
+                    linha = []
+                    for j in range(len(matriz[0])):
+                        soma = 0
+                        for k in range(len(matriz)):
+                            soma += resultado[i][k] * matriz[k][j]
+                        linha.append(soma)
+                    novo_resultado.append(linha)
 
-            novo_resultado = []
-            for i in range(len(resultado)):
-                linha = []
-                for j in range(len(matriz[0])):
-                    soma = 0
-                    for k in range(len(matriz)):
-                        soma += resultado[i][k] * matriz[k][j]
+            resultado = novo_resultado
 
-                    linha.append(soma)
+            ver_passo = input("\nDeseja ver o passo a passo da multiplicação? (S/N): ").upper()
+            if ver_passo == "S":
+                explicar_multmat(
+                    matrizes[escolhidas[0]],
+                    matrizes[escolhidas[1]]
+                )
 
-                novo_resultado.append(linha)
+            return resultado
+        elif len(matrizes) == 2:
+            escolhidas = escolher_matriz()
+            
+            for linha in matrizes[escolhidas[0]]:
+                resultado.append(linha.copy())
+                
+            for indice in escolhidas[1]:
+                matriz = matrizes[indice]
+                
+                if len(resultado[0]) != len(matriz):
+                    print("Não é possível multiplicar.")
+                    return None
+                
+                novo_resultado = []
+                for i in range(len(resultado)):
+                    linha = []
+                    for j in range(len(matriz[0])):
+                        soma = 0
+                        for k in range(len(matriz)):
+                            soma += resultado[i][k] * matriz[k][j]
+                        linha.append(soma)
+                    novo_resultado.append(linha)
+                resultado = novo_resultado 
+                
+            ver_passo = input("\nDeseja ver o passo a passo da multiplicação? (S/N): ").upper()
+            if ver_passo == "S":
+                explicar_multmat(
+                    matrizes[escolhidas[0]],
+                    matrizes[escolhidas[1]]
+                )
 
-        resultado = novo_resultado
-
-        ver_passo = input("\nDeseja ver o passo a passo da multiplicação? (S/N): ").upper()
-        if ver_passo == "S":
-            explicar_multmat(
-                matrizes[escolhidas[0]],
-                matrizes[escolhidas[1]]
-            )
-
-        return resultado
-
+            return resultado
+            
+        else:
+            print("Crie outra matriz para realizar a multiplicação ")
+            quantMatriz = int(input("\nQuantas matrizes você irá querer criar? "))
+            for i in range(quantMatriz):
+                criar_matriz()
+            return mult_matriz()
+        
     def explicar_multmat(m1, m2):
         print("\n--- PASSO A PASSO DA MULTIPLICAÇÃO DE MATRIZES ---")
         print("Para multiplicar duas matrizes, multiplicamos os elementos na mesma posição:")
@@ -519,10 +561,12 @@ while True:
 
         if (calc == 2):
             resultado = subt_matriz()
-            print("\nResultado da subtração: ")
-            time.sleep(2)
-            mostrar_matriz(resultado)
-            time.sleep(3)
+            
+            if resultado != None:
+                print("\nResultado da subtração: ")
+                time.sleep(2)
+                mostrar_matriz(resultado)
+                time.sleep(3)
 
             print("\n === Calculadora ==="
                   "\n1 - Deseja fechar o programa"
@@ -538,10 +582,12 @@ while True:
 
         if (calc == 3):
             resultado = mult_int()
-            print("\nResultado da multiplicação por número inteiro: ")
-            time.sleep(2)
-            mostrar_matriz(resultado)
-            time.sleep(3)
+            
+            if resultado != None: 
+                print("\nResultado da multiplicação por número inteiro: ")
+                time.sleep(2)
+                mostrar_matriz(resultado)
+                time.sleep(3)
 
             print("\n === Calculadora ==="
                   "\n1 - Deseja fechar o programa"
@@ -557,10 +603,12 @@ while True:
 
         if (calc == 4):
             resultado = mult_matriz()
-            print("\nResultado da multiplicação de matrizes: ")
-            time.sleep(2)
-            mostrar_matriz(resultado)
-            time.sleep(3)
+            
+            if resultado != None: 
+                print("\nResultado da multiplicação de matrizes: ")
+                time.sleep(2)
+                mostrar_matriz(resultado)
+                time.sleep(3)
 
             print("\n === Calculadora ==="
                   "\n1 - Deseja fechar o programa"
@@ -576,10 +624,12 @@ while True:
 
         if calc == 5:
             resultado = matriz_transposta()
-            print("\nResultado da matriz transposta: ")
-            time.sleep(2)
-            mostrar_matriz(resultado)
-            time.sleep(3)
+            
+            if resultado != None:
+                print("\nResultado da matriz transposta: ")
+                time.sleep(2)
+                mostrar_matriz(resultado)
+                time.sleep(3)
 
             print("\n === Calculadora ==="
                   "\n1 - Deseja fechar o programa"
@@ -595,11 +645,12 @@ while True:
 
         if calc == 6:
             resultado = determinante()
-            print("\nResultado do determinante:")
-            time.sleep(2)
-            if resultado != None:
+            
+            if resultado != None: 
+                print("\nResultado do determinante:")
+                time.sleep(2)
                 print(resultado)
-            time.sleep(3)
+                time.sleep(3)
 
             print("\n === Calculadora ==="
                   "\n1 - Deseja fechar o programa"
