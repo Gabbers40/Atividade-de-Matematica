@@ -15,7 +15,7 @@ while True:
     quantMatriz = int(input("Quantas matrizes você quer gerar? :"))
 
     def fechar_programa():
-        dec = str(input("Você deseja sair do programa? S/N")).upper()
+        dec = str(input("Você deseja sair do programa? S/N :")).upper()
         if dec == "S":
             print("Saindo do programa...")
             time.sleep(3)
@@ -291,7 +291,7 @@ while True:
             for j in range(colunas):
                 v1 = m1[i][j]
                 v2 = v1 * num1
-                print(f"Posição [{i + 1}][{j + 1}]: {v1} x {v2} = {v2}")
+                print(f"Posição [{i + 1}][{j + 1}]: {v1} x {num1} = {v2}")
 
     def mult_matriz():
         matriz = []
